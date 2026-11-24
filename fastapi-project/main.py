@@ -34,13 +34,8 @@ def get_cor(nome_cor: NomeCor):
     return {"nome_cor": nome_cor, "mensagem": "Vermelho"}
 
 # Parametros de Consulta
-@app.get("/items/")
-def read_item(skip: int = 0, limit: int = 10):
-    return fake_items_db[skip: skip + limit]
-
-# Parametros opcionais
+# Múltiplos parâmetros de rota e consulta
 @app.get("/items/{item_id}")
-def read_item2(item_id: str, q: str | None = None):
-    if q:
-        return {"item_id": item_id, "q": q}
-    return {"item_id": item_id}
+async def read_user_item(item_id: str, needy: str, skip: int = 0, limit: int | None = None):
+    item = {"item_id": item_id, "needy": needy, "skip": skip, "limit": limit}
+    return item
